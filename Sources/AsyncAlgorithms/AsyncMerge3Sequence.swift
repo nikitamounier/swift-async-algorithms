@@ -21,7 +21,7 @@ where
 }
 
 extension AsyncSequence {
-  /// Creates an asynchronous sequence of elements from two underlying asynchronous sequences
+  /// Creates an asynchronous sequence of elements from itself and two other underlying asynchronous sequences
   public func merge<Base2: AsyncSequence, Base3>(with base2: Base2, _ base3: Base3) -> AsyncMerge2Sequence<Self, Base2>
   where
     Self.Element == Base2.Element,
