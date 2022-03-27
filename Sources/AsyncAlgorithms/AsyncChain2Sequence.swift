@@ -22,6 +22,20 @@ public func chain<Base1: AsyncSequence, Base2: AsyncSequence>(_ s1: Base1, _ s2:
   AsyncChain2Sequence(s1, s2)
 }
 
+extension AsyncSequence {
+  /// Returns a new asynchronous sequence that iterates over itself and the other given asynchronous sequence, one
+  /// followed by the other.
+  ///
+  /// - Parameters:
+  ///   - s2: The second asynchronous sequence.
+  /// - Returns: An asynchronous sequence that iterates first over its own elements, and
+  ///   then over the elements of `s2`.  
+  @inlinable
+  public func chain<Base2: AsyncSequence>(with s2: Base2) -> AsyncChain2Sequence<Self, Base2> where Self.Element == Base2.Element {
+    AsyncChain2Sequence(self, s2)
+  }
+}
+
 /// A concatenation of two asynchronous sequences with the same element type.
 @frozen
 public struct AsyncChain2Sequence<Base1: AsyncSequence, Base2: AsyncSequence> where Base1.Element == Base2.Element {

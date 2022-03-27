@@ -23,6 +23,21 @@ public func chain<Base1: AsyncSequence, Base2: AsyncSequence, Base3: AsyncSequen
   AsyncChain3Sequence(s1, s2, s3)
 }
 
+extension AsyncSequence {
+  /// Returns a new asynchronous sequence that iterates over itself and two other given asynchronous sequence, one
+  /// followed by the other.
+  ///
+  /// - Parameters:
+  ///   - s2: The second asynchronous sequence.
+  ///   - s3: The third asynchronous sequence.
+  /// - Returns: An asynchronous sequence that iterates first over its own elements, and
+  ///   then over the elements of `s2`, and then over the elements of `s3`
+  @inlinable
+  public func chain<Base2: AsyncSequence, Base3: AsyncSequence>(with s2: Base2, _ s3: Base3) -> AsyncChain2Sequence<Self, Base2, Base3> where Self.Element == Base2.Element {
+    AsyncChain3Sequence(self, s2, s3)
+  }
+}
+
 /// A concatenation of three asynchronous sequences with the same element type.
 @frozen
 public struct AsyncChain3Sequence<Base1: AsyncSequence, Base2: AsyncSequence, Base3: AsyncSequence> where Base1.Element == Base2.Element, Base1.Element == Base3.Element {
