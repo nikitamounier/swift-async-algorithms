@@ -33,7 +33,7 @@ extension AsyncSequence {
   /// - Returns: An asynchronous sequence that iterates first over its own elements, and
   ///   then over the elements of `s2`, and then over the elements of `s3`
   @inlinable
-  public func chain<Base2: AsyncSequence, Base3: AsyncSequence>(with s2: Base2, _ s3: Base3) -> AsyncChain2Sequence<Self, Base2, Base3> where Self.Element == Base2.Element {
+  public func chain<Base2: AsyncSequence, Base3: AsyncSequence>(with s2: Base2, _ s3: Base3) -> AsyncChain2Sequence<Self, Base2, Base3> {
     AsyncChain3Sequence(self, s2, s3)
   }
 }

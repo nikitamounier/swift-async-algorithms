@@ -20,6 +20,19 @@ where
   return AsyncMerge3Sequence(base1, base2, base3)
 }
 
+extension AsyncSequence {
+  /// Creates an asynchronous sequence of elements from two underlying asynchronous sequences
+  public func merge<Base2: AsyncSequence, Base3>(with base2: Base2, _ base3: Base3) -> AsyncMerge2Sequence<Self, Base2>
+  where
+    Self.Element == Base2.Element,
+    Base2.Element == Base3.Element,
+    Self: Sendable, Base2: Sendable, Base3: Sendable,
+    Self.Element: Sendable,
+    Self.AsyncIterator: Sendable, Base2.AsyncIterator: Sendable, Base3.AsyncIterator: Sendable {
+      return AsyncMerge3Sequence(self, base2, base3)
+    }
+}
+
 /// An asynchronous sequence of elements from three underlying asynchronous sequences
 ///
 /// In a `AsyncMerge3Sequence` instance, the *i*th element is the *i*th element

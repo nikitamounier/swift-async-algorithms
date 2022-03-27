@@ -19,6 +19,18 @@ where
   return AsyncMerge2Sequence(base1, base2)
 }
 
+extension AsyncSequence {
+  /// Creates an asynchronous sequence of elements from two underlying asynchronous sequences
+  public func merge<Base2: AsyncSequence>(with base2: Base2) -> AsyncMerge2Sequence<Self, Base2>
+  where
+    Self.Element == Base2.Element,
+    Self: Sendable, Base2: Sendable,
+    Self.Element: Sendable,
+    Self.AsyncIterator: Sendable, Base2.AsyncIterator: Sendable {
+      return AsyncMerge2Sequence(self, base2)
+    }
+}
+
 struct Merge2StateMachine<Base1: AsyncSequence, Base2: AsyncSequence>: Sendable where Base1.AsyncIterator: Sendable, Base2.AsyncIterator: Sendable, Base1.Element: Sendable, Base2.Element: Sendable {
   typealias Element1 = Base1.Element
   typealias Element2 = Base2.Element
