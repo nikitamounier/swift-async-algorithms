@@ -23,7 +23,7 @@ public func chain<Base1: AsyncSequence, Base2: AsyncSequence>(_ s1: Base1, _ s2:
 }
 
 extension AsyncSequence {
-  /// Returns a new asynchronous sequence that iterates over itself and the other given asynchronous sequence, one
+  /// Returns a new asynchronous sequence that iterates over this asynchronous sequence and the other given asynchronous sequence, one
   /// followed by the other.
   ///
   /// - Parameters:

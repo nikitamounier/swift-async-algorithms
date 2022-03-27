@@ -24,7 +24,7 @@ public func chain<Base1: AsyncSequence, Base2: AsyncSequence, Base3: AsyncSequen
 }
 
 extension AsyncSequence {
-  /// Returns a new asynchronous sequence that iterates over itself and two other given asynchronous sequence, one
+  /// Returns a new asynchronous sequence that iterates over this asynchronous sequence and two other given asynchronous sequence, one
   /// followed by the other.
   ///
   /// - Parameters:
@@ -33,7 +33,7 @@ extension AsyncSequence {
   /// - Returns: An asynchronous sequence that iterates first over its own elements, and
   ///   then over the elements of `s2`, and then over the elements of `s3`
   @inlinable
-  public func chain<Base2: AsyncSequence, Base3: AsyncSequence>(with s2: Base2, _ s3: Base3) -> AsyncChain2Sequence<Self, Base2, Base3> {
+  public func chain<Base2: AsyncSequence, Base3: AsyncSequence>(with s2: Base2, _ s3: Base3) -> AsyncChain3Sequence<Self, Base2, Base3> {
     AsyncChain3Sequence(self, s2, s3)
   }
 }

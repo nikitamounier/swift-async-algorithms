@@ -24,6 +24,23 @@ public func zip<Base1: AsyncSequence, Base2: AsyncSequence, Base3: AsyncSequence
   AsyncZip3Sequence(base1, base2, base3)
 }
 
+extension AsyncSequence {
+  /// Creates an asynchronous sequence that concurrently awaits values from this asynchronous sequence and two other `AsyncSequence` types
+  /// and emits a tuple of the values.
+  public func zip<Base2: AsyncSequence, Base3: AsyncSequence>(with base2: Base2. _ base3: Base3) -> AsyncZip3Sequence<Self, Base2, Base3>
+    where Self: Sendable,
+        Base2: Sendable,
+        Base3: Sendable,
+        Self.AsyncIterator: Sendable,
+        Base2.AsyncIterator: Sendable,
+        Base3.AsyncIterator: Sendable,
+        Self.Element: Sendable,
+        Base2.Element: Sendable,
+        Base3.Element: Sendable {
+    AsyncZip3Sequence(self, base2, base3)
+    }
+}
+
 /// An asynchronous sequence that concurrently awaits values from three `AsyncSequence` types
 /// and emits a tuple of the values.
 public struct AsyncZip3Sequence<Base1: AsyncSequence, Base2: AsyncSequence, Base3: AsyncSequence>: Sendable

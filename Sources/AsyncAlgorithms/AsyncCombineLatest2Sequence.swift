@@ -15,6 +15,14 @@ public func combineLatest<Base1: AsyncSequence, Base2: AsyncSequence>(_ base1: B
   AsyncCombineLatest2Sequence(base1, base2)
 }
 
+extension AsyncSequence {
+  /// Creates an asynchronous sequence that combines the latest values from this asynchronous sequence and another `AsyncSequence` types
+  /// by emitting a tuple of the values.
+  public func combineLatest<Base2: AsyncSequence>(with base2: Base2) -> AsyncCombineLatest2Sequence<Self, Base2> {
+    AsyncCombineLatest2Sequence(self, base2)
+  }
+}
+
 /// An `AsyncSequence` that combines the latest values produced from two asynchronous sequences into an asynchronous sequence of tuples.
 public struct AsyncCombineLatest2Sequence<Base1: AsyncSequence, Base2: AsyncSequence>: Sendable
   where
